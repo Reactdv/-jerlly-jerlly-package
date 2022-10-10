@@ -1,5 +1,5 @@
 interface Method {
-    get: (params: Param['endPoint']) => Promise<any>;
+    get: (endPoint: Param['endPoint']) => Promise<any>;
     post: (params: Param) => Promise<any>;
     update: (params: Param) => Promise<any>;
     destroy: (params: Param) => Promise<any>;
