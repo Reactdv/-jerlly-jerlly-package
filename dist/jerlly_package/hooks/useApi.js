@@ -15,8 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.useApi = void 0;
 const axios_1 = __importDefault(require("axios"));
 const useApi = () => {
-    const get = (params) => __awaiter(void 0, void 0, void 0, function* () {
-        const { endPoint } = params;
+    const get = (endPoint) => __awaiter(void 0, void 0, void 0, function* () {
         const res = yield axios_1.default.get(endPoint);
         return res;
     });
