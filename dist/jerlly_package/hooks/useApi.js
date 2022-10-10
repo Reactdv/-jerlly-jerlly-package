@@ -14,14 +14,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.useApi = void 0;
 const axios_1 = __importDefault(require("axios"));
-const useApi = (endPoint, method, data, id) => __awaiter(void 0, void 0, void 0, function* () {
-    let res;
-    switch (method) {
-        case "get":
-            res = yield axios_1.default.get(endPoint);
-            return res;
-            break;
-    }
-});
+const useApi = () => {
+    const get = (params) => __awaiter(void 0, void 0, void 0, function* () {
+        const { endPoint } = params;
+        const res = yield axios_1.default.get(endPoint);
+        return res;
+    });
+    const post = (params) => __awaiter(void 0, void 0, void 0, function* () {
+        const { endPoint, data } = params;
+        const res = yield axios_1.default.post(endPoint, data);
+        return res;
+    });
+    const update = (params) => __awaiter(void 0, void 0, void 0, function* () {
+        const { endPoint, id } = params;
+        const res = yield axios_1.default.put(`${endPoint}${id}`);
+        return res;
+    });
+    const destroy = (params) => __awaiter(void 0, void 0, void 0, function* () {
+        const { endPoint, id } = params;
+        const res = yield axios_1.default.delete(`${endPoint}${id}`);
+        return res;
+    });
+    return { get, post, update, destroy };
+};
 exports.useApi = useApi;
 //# sourceMappingURL=useApi.js.map

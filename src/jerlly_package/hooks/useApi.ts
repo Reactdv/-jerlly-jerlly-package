@@ -1,17 +1,41 @@
 import axios from "axios";
 
-export const useApi = async (
-	endPoint: string,
-	method: string,
-	data: [] | {},
-	id: string | number
-) => {
-	let res;
+interface Method {
+	get: (params:Param) => Promise<any>;
+	post: (params: Param) => Promise<any>;
+	update: (params:Param) => Promise<any>;
+	destroy: (params:Param) => Promise<any>;
+}
 
-	switch (method) {
-		case "get":
-			res = await axios.get(endPoint);
-			return res;
-			break;
-	}
+interface Param {
+	endPoint: string;
+	data?: any[] | object;
+	id?: string | number;
+}
+
+export const useApi = (): Method => {
+	const get = async (params:Param):Promise<any> => {
+		const { endPoint } = params
+		const res = await axios.get(endPoint);
+		return res;
+	};
+	const post = async (params: Param): Promise<any> => {
+		const { endPoint,data } = params
+		const res = await axios.post(endPoint, data);
+		return res
+	};
+	const update = async (params:Param): Promise<any> => {
+		const { endPoint,id } = params
+
+		const res = await axios.put(`${endPoint}${id}`)
+		return res
+	};
+	const destroy = async (params:Param): Promise<any> => {
+		const { endPoint,id } = params
+		const res = await axios.delete(`${endPoint}${id}`)
+		return res
+
+	};
+
+	return { get, post, update, destroy };
 };
