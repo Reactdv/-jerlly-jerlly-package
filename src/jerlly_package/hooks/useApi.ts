@@ -1,7 +1,7 @@
 import axios from "axios";
 
 interface Method {
-	get: (params:Param) => Promise<any>;
+	get: (params:Param['endPoint']) => Promise<any>;
 	post: (params: Param) => Promise<any>;
 	update: (params:Param) => Promise<any>;
 	destroy: (params:Param) => Promise<any>;
@@ -14,8 +14,7 @@ interface Param {
 }
 
 export const useApi = (): Method => {
-	const get = async (params:Param):Promise<any> => {
-		const { endPoint } = params
+	const get = async (endPoint:Param['endPoint']):Promise<any> => {
 		const res = await axios.get(endPoint);
 		return res;
 	};
